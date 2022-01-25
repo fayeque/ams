@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amspatientappn-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amspatientappn
+  template:
+    metadata:
+      labels:
+        app: amspatientappn
+    spec:
+      containers:
+        - name: amspatientappn
+          image: fayeque123/amspatientappn
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amspatientappn-srv
+spec:
+  selector:
+    app: amspatientappn
+  ports:
+    - name: amspatientappn
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

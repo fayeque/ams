@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amsclient-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amsclient
+  template:
+    metadata:
+      labels:
+        app: amsclient
+    spec:
+      containers:
+        - name: amsclient
+          image: fayeque123/ams-client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amsclient-srv
+spec:
+  selector:
+    app: amsclient
+  ports:
+    - name: amsclient
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

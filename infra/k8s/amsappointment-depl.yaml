@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amsappointment-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amsappointment
+  template:
+    metadata:
+      labels:
+        app: amsappointment
+    spec:
+      containers:
+        - name: amsappointment
+          image: fayeque123/amsappointment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amsappointment-srv
+spec:
+  selector:
+    app: amsappointment
+  ports:
+    - name: amsappointment
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

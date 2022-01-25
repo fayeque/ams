@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amsauth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amsauth
+  template:
+    metadata:
+      labels:
+        app: amsauth
+    spec:
+      containers:
+        - name: amsauth
+          image: fayeque123/amsauth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amsauth-srv
+spec:
+  selector:
+    app: amsauth
+  ports:
+    - name: amsauth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+
